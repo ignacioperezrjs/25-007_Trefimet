@@ -40,8 +40,8 @@ def main():
                     current_time = time.time() - start_time
                     sensor.timestamps.append(current_time)
                     
-                    # Update real-time plot every 5 measurements
-                    if len(sensor.timestamps) % 5 == 0:
+                    # Update real-time plot every 2 measurements
+                    if len(sensor.timestamps) % 2 == 0:
                         create_real_time_plot_v2(
                             sensor.timestamps,
                             sensor.measurements['voltage_f1'],
@@ -62,6 +62,18 @@ def main():
         print("\nPrograma detenido por el usuario. Guardando datos...")
         try:
             plt.ioff()  # Turn off interactive mode
+            
+            # Save the last real-time plot
+            try:
+                plt.savefig(os.path.join(directory, f"last_real_time_plot_{start_time_str}.png"))
+                print(f"Último gráfico en tiempo real guardado en {directory}")
+            except Exception as plot_error:
+                print(f"Error al guardar el último gráfico en tiempo real: {plot_error}")
+            
+            # Truncate all arrays to the same length
+            min_length = min(len(sensor.timestamps), *[len(values) for values in sensor.measurements.values()])
+            sensor.timestamps = sensor.timestamps[:min_length]
+            sensor.measurements = {key: values[:min_length] for key, values in sensor.measurements.items()}
             
             # Create DataFrame
             df = pd.DataFrame({
@@ -101,6 +113,6 @@ def main():
         finally:
             plt.close('all')
             print("Programa finalizado.")
-
+            
 if __name__ == "__main__":
     main()
