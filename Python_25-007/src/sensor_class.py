@@ -73,6 +73,11 @@ class SDM630Sensor(BaseSensor):
             
         super().__init__(config_path, com_port)
 
+        # Initialize timestamps and measurements with (0.0, 0.0)
+        self.timestamps.append(0.0)  # Add 0.0 to timestamps
+        for register_name in self.config['register_settings']['register_map'].keys():
+            self.measurements[register_name] = [0.0]  # Add 0.0 to each measurement list
+
     def read_register(self, register_name: str) -> float:
         try:
             register_info = self.config['register_settings']['register_map'][register_name]

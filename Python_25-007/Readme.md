@@ -1,77 +1,102 @@
 # Power Meter Data Logger
-The main idea is to be able to see real time plots. And afterwards save them
+The main purpose of this project is to monitor power meter data in real-time through plots and save the data for later analysis. **Note:** The code and outputs are in Spanish.
+
 ![alt text](image.png)
 
-## Estructura del Proyecto
+## Project Structure
 ```
 25-007 Trefimet/
-├── config/
-│   └── sensors/
-│       └── sdm630_power_meter.json
 ├── src/
+│   ├── config/
+│   │   └── sensors/
+│   │       └── sdm630_power_meter.json
 │   ├── __init__.py
 │   ├── sensor_reader.py
 │   ├── data_logger.py
 │   └── plotter.py
+├── results/
+│   └── {measurement_name}/
+│       ├── data.xlsx
+│       ├── last_real_time_plot.png
+│       └── plots/
+│           ├── Voltage_F1.png
+│           ├── Current_F1.png
+│           └── ...
 ├── tests/
 │   ├── __init__.py
 │   ├── test_sensor_reader.py
 │   ├── test_data_logger.py
 │   └── test_plotter.py
-├── results/
-│   ├── measurements/
-│   │   └── {timestamp}/
-│   │       ├── data.xlsx
-│   │       └── plots/
-│   └── tests/
-│       └── {timestamp}/
-│           ├── test_results.html
-│           └── test_data.json
 ├── main.py
 └── README.md
 ```
-![alt text](image-1.png)
 
-## Configuración
-Antes de ejecutar las pruebas o el programa principal:
+## Configuration
+Before running the tests or the main program:
 
-1. Verifique la conexión del sensor:
-   - Puerto COM correcto
-   - Velocidad de baudios (Baud rate)
-   - Paridad
-   - Frecuencia de muestreo
+1. Verify the sensor connection:
+   - Correct COM port
+   - Baud rate
+   - Parity
+   - Sampling frequency
 
-2. Configure el archivo JSON del sensor:
+2. Configure the sensor JSON file:
    ```bash
    python create_json.py
    ```
-   Este script generará un archivo de configuración en:
-   `/config/sensors/sdm630_power_meter.json`
+   This script will generate a configuration file in:
+   `/src/config/sensors/sdm630_power_meter.json`
 
-## Uso Principal
-El archivo `main.py` permite:
-- Monitoreo en tiempo real de los sensores
-- Almacenamiento automático de datos en formato Excel
-- Visualización de mediciones
+## Main Usage
+The `main.py` file allows:
+- Real-time monitoring of sensors
+- Automatic data storage in Excel format
+- Visualization of measurements
 
-Para ejecutar:
-```bash
-python main.py
+### How to Run
+1. Navigate to the main project directory:
+   ```bash
+   cd Python_25_007
+   ```
+2. Run the main file:
+   ```bash
+   python main.py
+   ```
+
+When the program starts, you will be prompted to name the measurement folder. The results will be saved in the `results/{measurement_name}/` directory.
+
+### Example Output
+If the measurement name is `test_measurement`, the results will be saved in:
+```
+results/
+└── test_measurement/
+    ├── data.xlsx
+    ├── last_real_time_plot.png
+    └── plots/
+        ├── Voltage_F1.png
+        ├── Current_F1.png
+        └── ...
 ```
 
-## Pruebas
-Antes de ejecutar las pruebas:
-1. Asegúrese que el archivo JSON de configuración esté correctamente configurado
-2. Verifique la conexión física del sensor
-3. Confirme que el puerto serie esté disponible
+## Sensor Classes
+Each sensor is implemented as a separate class in the project. For example:
+- `SDM630Sensor`: Class to handle the SDM630 power meter.
+- New sensors can be added by creating new classes that inherit from `BaseSensor`.
 
-Para ejecutar las pruebas:
+## Tests
+Before running the tests:
+1. Ensure the JSON configuration file is correctly set up.
+2. Verify the physical connection of the sensor.
+3. Confirm that the serial port is available.
+
+To run the tests:
 ```bash
 python -m pytest tests/ --html=results/tests/$(date +%Y%m%d_%H%M%S)/test_results.html
 ```
 
-## Estructura de Resultados
-- `/results/measurements/`: Contiene las mediciones organizadas por timestamp
-  - `data.xlsx`: Archivo Excel con todas las mediciones
-  - `plots/`: Gráficos generados durante el monitoreo
-- `/results/tests/`: Contiene los resultados de las pruebas unitarias
+## Results Structure
+- `/results/{measurement_name}/`: Contains the measurements and plots for the specific measurement.
+  - `data.xlsx`: Excel file with all measurements.
+  - `last_real_time_plot.png`: The last real-time plot saved when the program was stopped.
+  - `plots/`: Folder containing individual plots for each parameter (e.g., `Voltage_F1.png`, `Current_F1.png`, etc.).
+- `/results/tests/`: Contains the results of unit tests.
