@@ -1,0 +1,62 @@
+{
+    "device_type": "SDM630-Modbus v2",
+    "modbus_settings": {
+        "baudrate": 9600,
+        "bytesize": 8,
+        "parity": "N",
+        "slave_id": 1,
+        "stopbits": 1,
+        "timeout": 2
+    },
+    "register_settings": {
+        "base_address": 0,
+        "register_map": {
+            "active_power_f1": {
+                "address": 12,
+                "length": 2,
+                "type": "float32"
+            },
+            "current_f1": {
+                "address": 6,
+                "length": 2,
+                "type": "float32"
+            },
+            "frequency": {
+                "address": 70,
+                "length": 2,
+                "type": "float32"
+            },
+            "max_current_f1": {
+                "address": 264,
+                "length": 2,
+                "type": "float32"
+            },
+            "power_factor_f1": {
+                "address": 30,
+                "length": 2,
+                "type": "float32"
+            },
+            "reactive_power_f1": {
+                "address": 24,
+                "length": 2,
+                "type": "float32"
+            },
+            "thd_current_f1": {
+                "address": 240,
+                "length": 2,
+                "type": "float32"
+            },
+            "thd_voltage_f1": {
+                "address": 234,
+                "length": 2,
+                "type": "float32"
+            },
+            "voltage_f1": {
+                "address": 0,
+                "length": 2,
+                "type": "float32"
+            }
+        }
+    },
+    "tested_JSON": "not tested"
+}
