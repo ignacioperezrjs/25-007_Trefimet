@@ -2,7 +2,7 @@
 Repositorio de simulaciones magneto-térmicas para el proyecto bobina-barra.  
 
 ## Descripción  
-Este proyecto contiene los archivos necesarios para realizar simulaciones magneto-térmicas utilizando GetDP y GMSH. Las simulaciones modelan la interacción electromagnética entre una bobina y una barra para diferentes frecuencias y configuraciones.  
+Este proyecto contiene los archivos necesarios para realizar simulaciones magneto-térmicas utilizando GetDP y GMSH. Las simulaciones modelan la interacción electromagnética entre una bobina y una barra para diferentes frecuencias y configuraciones.  Para crear el archivo .msh, ir al Readme.txt dentro de la carpeta de simulación.
 
 ## Docker (Contenedor)  
 ### Requisitos  
